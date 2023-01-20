@@ -10,10 +10,14 @@
 
   <ItemGroup>
     <None Remove="Data\Input1.txt" />
+    <None Remove="Data\LargeInput.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Data\Input1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\LargeInput.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -1,6 +1,7 @@
 ﻿using DroneDelivery.Common;
 using DroneDelivery.Domain;
 using System.Collections;
+using System.Linq;
 
 namespace DroneDelivery.Application
 {
@@ -16,14 +17,14 @@ namespace DroneDelivery.Application
             locations = locations.OrderBy(x => x.Weight);
 
             IList<Trip> listTrips = new List<Trip>();
-
-            IEnumerable<Location> remainingLocation = new List<Location>(locations);
-
+            
             var maxCapacityDrone = dronesSorted.First();
 
             var candidateDrone = maxCapacityDrone.Clone() as Drone;
 
             var sortedDronesQueue = new Queue<Drone>(dronesSorted.Count() > 1 ? dronesSorted.Skip(1) : dronesSorted);
+
+            IEnumerable<Location> remainingLocation = new List<Location>(locations.Where(x => x.Weight <= candidateDrone?.Weight));
 
             while (remainingLocation.Any())
             {

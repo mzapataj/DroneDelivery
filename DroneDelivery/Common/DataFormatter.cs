@@ -6,7 +6,7 @@ namespace DroneDelivery.Common
 {
     public class DataFormatter : IDataFormatter
     {
-        private readonly Regex delimiterPattern = new Regex(@"\s*,\s*");
+        private readonly Regex delimiterPattern = new Regex(@"\s*,\s*(?!\s|\d+)");
 
         public DataFormatter() { }
 

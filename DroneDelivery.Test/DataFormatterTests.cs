@@ -12,12 +12,11 @@
         [Fact]
         public void InputFormat()
         {
-
             var path = @".\Data\Input1.txt";
 
             IList<Drone> drones = DeliveryFixture.SeveralDrones();
 
-            IList<Location> locations = DeliveryFixture.Locations1();           
+            IList<Location> locations = DeliveryFixture.Locations1();
 
             var dronesLocations = dataFormatter.ReadFile(path);
 
