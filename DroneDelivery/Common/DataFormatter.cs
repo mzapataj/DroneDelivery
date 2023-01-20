@@ -117,7 +117,7 @@ namespace DroneDelivery.Common
 
             return stringBuilder.ToString();
         }
-
+        
 
         private float checkValidWeight(string[] inputSplit, int i, Type type)
         {

@@ -1,4 +1,6 @@
-﻿var builder = Host.CreateDefaultBuilder(args);
+﻿using System.Runtime.InteropServices;
+
+var builder = Host.CreateDefaultBuilder(args);
 var host = builder.BuildServices();
 
 
@@ -62,6 +64,12 @@ catch (Exception)
 File.WriteAllText(fullOutputFilePath, output);
 
 Console.WriteLine($"Output was saved in the following file: '{fullOutputFilePath}'");
+
+if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+{
+    Utils.OpenFile(fullOutputFilePath);
+}
+
 Console.WriteLine();
 Console.WriteLine("Press any key to exit...");
 Console.ReadKey();

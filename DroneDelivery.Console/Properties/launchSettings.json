@@ -1,8 +1,7 @@
 {
   "profiles": {
     "DroneDelivery.Console": {
-      "commandName": "Project",
-      "commandLineArgs": "-p C:\\Users\\jo-ge\\Documents\\Input.txt"
+      "commandName": "Project"
     }
   }
 }
