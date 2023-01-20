@@ -32,15 +32,15 @@ Command usage can be obtained executed the following:
   * **NuGet Dependencies:** 
     * Microsoft.Extensions.Hosting (7.0.0)
 
-* **DroneDelivery.Test:** Project with four unit test for the class `DeliveryService` and `DataFormatter`
+* **DroneDelivery.Test:** Project with five unit test for the class `DeliveryService`, `TripService`  and `DataFormatter`. This program was tested with 100 drones and 1000 locations, with a duration of 17 seconds on average as the image below shows.
 
-![image](https://user-images.githubusercontent.com/16918921/213621723-0dda5002-3ab4-4105-8978-c8ff94c68154.png)
+  ![image](https://user-images.githubusercontent.com/16918921/213782020-5df6a466-e428-4fa1-a462-b31efbaae81c.png)
 
-In the command line, you can run the following `dotnet test DroneDelivery.Test`
+  In the command line, you can run the following: `dotnet test DroneDelivery.Test`
 
-  * **NuGet Dependencies:** 
-    * coverlet.collector (3.1.2)
-    * FluentAssertions (6.9.0)
-    * xunit (2.4.1)
-    * xunit.runner.visualstudio (2.4.3)
-    * Microsoft.NET.Test.Sdk (17.1.0)
+   * **NuGet Dependencies:** 
+     * coverlet.collector (3.1.2)
+     * FluentAssertions (6.9.0)
+     * xunit (2.4.1)
+     * xunit.runner.visualstudio (2.4.3)
+     * Microsoft.NET.Test.Sdk (17.1.0)
