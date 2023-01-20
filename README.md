@@ -34,13 +34,13 @@ Command usage can be obtained executed the following:
 
 * **DroneDelivery.Test:** Project with four unit test for the class `DeliveryService` and `DataFormatter`
 
-![image](https://user-images.githubusercontent.com/16918921/213621723-0dda5002-3ab4-4105-8978-c8ff94c68154.png)
+  ![image](https://user-images.githubusercontent.com/16918921/213621723-0dda5002-3ab4-4105-8978-c8ff94c68154.png)
 
-In the command line, you can run the following `dotnet test DroneDelivery.Test`
+  In the command line, you can run the following `dotnet test DroneDelivery.Test`
 
-  * **NuGet Dependencies:** 
-    * coverlet.collector (3.1.2)
-    * FluentAssertions (6.9.0)
-    * xunit (2.4.1)
-    * xunit.runner.visualstudio (2.4.3)
-    * Microsoft.NET.Test.Sdk (17.1.0)
+   * **NuGet Dependencies:** 
+     * coverlet.collector (3.1.2)
+     * FluentAssertions (6.9.0)
+     * xunit (2.4.1)
+     * xunit.runner.visualstudio (2.4.3)
+     * Microsoft.NET.Test.Sdk (17.1.0)
