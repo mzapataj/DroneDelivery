@@ -1,5 +1,6 @@
 ﻿using DroneDelivery.Common;
 using DroneDelivery.Domain;
+using System.Collections;
 
 namespace DroneDelivery.Application
 {
@@ -9,51 +10,59 @@ namespace DroneDelivery.Application
         {            
         }        
         
-
         public IList<Trip> FindBestTrips(IEnumerable<Drone> drones, IEnumerable<Location> locations)
-        {            
-            var dronesSorted = drones.OrderBy(x => x.Weight);
-
+        {
+            var dronesSorted = drones.OrderByDescending(x => x.Weight);
             locations = locations.OrderBy(x => x.Weight);
 
-            IList <Trip> listTrips = new List<Trip>();            
+            IList<Trip> listTrips = new List<Trip>();
 
             IEnumerable<Location> remainingLocation = new List<Location>(locations);
 
+            var maxCapacityDrone = dronesSorted.First();
+
+            var candidateDrone = maxCapacityDrone.Clone() as Drone;
+
+            var sortedDronesQueue = new Queue<Drone>(dronesSorted.Count() > 1 ? dronesSorted.Skip(1) : dronesSorted);
+
             while (remainingLocation.Any())
-            {               
-                foreach (var drone in dronesSorted)
+            {
+                IList<Location> visitedLocations = FindBestTrip(maxCapacityDrone, remainingLocation.ToList());
+
+                var tripCapacity = visitedLocations.Sum(x => x.Weight);
+
+                if (sortedDronesQueue.Count > 0 && sortedDronesQueue.Peek().Weight >= tripCapacity)
                 {
-                    IList<Location> visitedLocations = FindBestTrip(drone, remainingLocation.ToList());
-
-                    listTrips.Add(new Trip()
-                    {
-                        Drone = drone,
-                        Locations = visitedLocations
-                    });
-
-                    remainingLocation = remainingLocation.Except(visitedLocations);
+                    candidateDrone = sortedDronesQueue.Dequeue().Clone() as Drone;
                 }
+
+                listTrips.Add(new Trip()
+                {
+                    Drone = candidateDrone,
+                    Locations = visitedLocations
+                });
+                remainingLocation = remainingLocation.Except(visitedLocations);
+            }
+
+            while (sortedDronesQueue.Count > 0)
+            {
+                listTrips.Add(new Trip()
+                {
+                    Drone = sortedDronesQueue.Dequeue(),
+                    Locations = new List<Location>()
+                });
             }
 
             var dronesList = drones.ToList();
-            return listTrips.OrderBy( 
-                x =>
-                {
-                    var index = dronesList.IndexOf(x.Drone);
-                    return index;
-                }
-                
-                ).ToList();
+            return listTrips.OrderBy(x => dronesList.IndexOf(x.Drone)).ToList();
         }
 
         private IList<Location> FindBestTrip(Drone drone,IList<Location> locations)
         {
-            float lowestWeightCapacity = float.MaxValue;
+            float highestWeightCapacity = float.MaxValue;
             float weightCapacity = drone.Weight;
             bool finishSearch = false;
             bool skipCurrentLoop = false;
-
 
             IList<Location> bestCandidateTrip = new List<Location>();
 
@@ -69,20 +78,20 @@ namespace DroneDelivery.Application
 
                     weightCapacity -= locations[i].Weight;
 
-                    if (lowestWeightCapacity > weightCapacity)
+                    if (highestWeightCapacity > weightCapacity)
                     {
-                        lowestWeightCapacity = weightCapacity;
+                        highestWeightCapacity = weightCapacity;
                         bestCandidateTrip = new List<Location>(visitedLocations);
                     }
 
                     if (weightCapacity == 0)
                     {
-                        finishSearch = true;                        
+                        finishSearch = true;
                     }
                     return false;
                 }
                 else
-                {
+                {                    
                     return true;
                 }
             }
@@ -108,8 +117,7 @@ namespace DroneDelivery.Application
                             visitedLocations = new List<Location>();
                             weightCapacity = drone.Weight;
                             break;
-                        }
-                            
+                        }                            
                     }
                 }
             }

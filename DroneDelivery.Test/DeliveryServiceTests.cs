@@ -1,14 +1,8 @@
-using DroneDelivery.Application;
-using DroneDelivery.Domain;
-using DroneDelivery.Test.Fixtures;
-using FluentAssertions;
-
 namespace DroneDelivery.Test
 {
     public class DeliveryServiceTests
     {
-
-        private readonly TripService deliveryService;
+        private readonly ITripService deliveryService;
 
         public DeliveryServiceTests()
         {
@@ -101,6 +95,16 @@ namespace DroneDelivery.Test
                     Drone = drones[0],
                     Locations = new List<Location>()
                     {
+                        locations[0],
+                        locations[3],
+                        locations[2]
+                    }
+                },
+                new Trip()
+                {
+                    Drone = drones[0],
+                    Locations = new List<Location>()
+                    {
                         locations[4]
                     }
                 },
@@ -115,32 +119,13 @@ namespace DroneDelivery.Test
                 new Trip()
                 {
                     Drone = drones[1],
-                    Locations = new List<Location>()
-                },
-                new Trip()
-                {
-                    Drone = drones[1],
-                    Locations = new List<Location>()
-                    {
-                        locations[2]
-                    }
+                    Locations = new List<Location>()                    
                 },
                 new Trip()
                 {
                     Drone = drones[2],
-                    Locations = new List<Location>()
-                    {
-                        locations[3]
-                    }                    
-                },
-                new Trip()
-                {
-                    Drone = drones[2],
-                    Locations = new List<Location>()
-                    {
-                        locations[0],                        
-                    }
-                },
+                    Locations = new List<Location>()                         
+                }
             };
 
             var trips = deliveryService.FindBestTrips(drones, locations);

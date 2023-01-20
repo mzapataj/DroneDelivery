@@ -1,13 +1,8 @@
-﻿using DroneDelivery.Application;
-using DroneDelivery.Common;
-using DroneDelivery.Domain;
-using DroneDelivery.Test.Fixtures;
-
-namespace DroneDelivery.Test
+﻿namespace DroneDelivery.Test
 {
     public class DataFormatterTests
     {
-        private readonly DataFormatter dataFormatter;
+        private readonly IDataFormatter dataFormatter;
 
         public DataFormatterTests()
         {
@@ -15,9 +10,26 @@ namespace DroneDelivery.Test
         }
 
         [Fact]
+        public void InputFormat()
+        {
+
+            var path = @".\Data\Input1.txt";
+
+            IList<Drone> drones = DeliveryFixture.SeveralDrones();
+
+            IList<Location> locations = DeliveryFixture.Locations1();           
+
+            var dronesLocations = dataFormatter.ReadFile(path);
+
+
+            Assert.Equal(drones, dronesLocations.Item1);
+            Assert.Equal(locations, dronesLocations.Item2);
+        }
+
+        [Fact]
         public void OutputFormat()
         {
-            var expectedOutput = "[C]\r\nTrip #1\r\n[D]\r\nTrip #2\r\n[A]\r\n\r\n[B]\r\nTrip #1\r\n[C]\r\nTrip #2\r\n\r\n\r\n[A]\r\nTrip #1\r\n[E]\r\nTrip #2\r\n[B]\r\n\r\n";
+            var expectedOutput = "[C]\r\nTrip #1\r\n[D]\r\nTrip #2\r\n[A]\r\n\r\n[B]\r\nTrip #1\r\n[C]\r\n\r\n[A]\r\nTrip #1\r\n[E]\r\nTrip #2\r\n[B]\r\n\r\n";
 
             IList<Drone> drones = DeliveryFixture.SeveralDrones();
 

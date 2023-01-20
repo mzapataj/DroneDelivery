@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace DroneDelivery.Domain
 {
-    public class WeighableEntity
+    public class WeighableEntity : ICloneable
     {
         public string? Name { get; set; }
         public float Weight { get; set; }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
 
         public override bool Equals(object? obj)
         {

@@ -1,5 +1,4 @@
 ﻿using DroneDelivery.Domain;
-using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -88,7 +87,6 @@ namespace DroneDelivery.Common
         }
 
 
-
         public string OutputTrips(IEnumerable<Trip> deliveries)
         {
 
@@ -103,14 +101,16 @@ namespace DroneDelivery.Common
                 outputTrips.Add((delivery.Key, xd));
             }
 
-
             foreach (var outputTrip in outputTrips)
             {
                 stringBuilder.AppendLine(outputTrip.Item1?.ToString());                
                 for (int i = 1; i <= outputTrip.Item2.Count; i++)
-                {                    
-                    stringBuilder.AppendLine("Trip #" + i);
-                    stringBuilder.AppendLine(string.Join(", ", outputTrip.Item2[i-1]));                    
+                {
+                    if (outputTrip.Item2[i - 1].Any())
+                    {
+                        stringBuilder.AppendLine("Trip #" + i);
+                        stringBuilder.AppendLine(string.Join(", ", outputTrip.Item2[i - 1]));
+                    }                    
                 }
                 stringBuilder.AppendLine();
             }
